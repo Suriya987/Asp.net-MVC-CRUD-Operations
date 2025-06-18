@@ -1,0 +1,34 @@
+
+To add the connections string:
+
+json -> file
+
+"ConnectionStrings": {
+    "DefaultConnection": "server=SURIYAT;Database=ProductDB;Trusted_Connection=True;TrustServerCertificate=True"
+  }
+
+Program.cs
+
+builder.Services.AddDbContext<Context>(options => 
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));    
+}
+);
+
+For Migration:
+Add-Migration initial
+Update-Database   for seed the data into the table 
+
+Scenario :
+
+1.If i am added  new column in the tables in the ssms , now we need to use scaffold -> reverse engineering ..
+to run the scafffold command in the package manager console 
+
+ Scaffold-DbContext "server=SURIYAT;Database=ProductDB;Trusted_Connection=True;TrustServerCertificate=True"
+Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
+
+   Syntax : { Scaffold-Dbcontext } "Connectionstring"  { Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force }
+
+2.Adding a another prop in existing model
+command
+Update-Database
